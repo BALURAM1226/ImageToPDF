@@ -1,0 +1,67 @@
+<! DOCTYPE html>
+  <html>
+
+  <head>
+    <title>Simple PDF converter</title>
+     <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+
+  <body>
+
+    <div class="container">
+      <h1 id="head">Simple Pdf Converter</h1>
+      
+      <div class="box">
+        <p>Easily convert to image to pdf from Simple PdF in seconds</p>
+        <input id="inp" type="file" accept="image/jpg ,image/png" multiple onchange="encodeImage(this)">
+        <button class="btn" onclick="cpdf()">Download Pdf</button>
+      </div>
+      
+      <div class="info">
+
+        <p id="notes"><span> Notes:-</span> It's convert only single Image file to PDF, Multiple images are note allowed!!!</p>
+        <h1>How to Convert files to from Simple Pdf Converter</h1>
+
+        <ul>
+          <li>Select the image file you wish to convert</li>
+          <li>Our free PDF creator will convert your document to pdf in a seconds</li>
+          <li>Your new document will be ready to download immediately.sipmly click on <span>Download Pdf</span> button!!!</li>
+        </ul>
+      </div>
+      <footer>
+        copyright ©2021 By Kumavat Baluram
+      </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js">
+    </script>
+    <script>
+      var f = document.getElementById("inp");
+      var imgdata = '';
+
+      function encodeImage(image) {
+        var img = image.files[0];
+        var file = new FileReader();
+        file.onloadend = function() {
+          imgdata = file.result;
+          console.log(file.result);
+        }
+        file.readAsDataURL(img);
+      }
+
+      function cpdf() {
+        var doc = new jsPDF();
+        var width = doc.internal.pageSize.getWidth();
+        var height = doc.internal.pageSize.getHeight();
+        if (document.getElementById('inp').value == "") {
+          alert('Please Choose File');
+          return false;
+        } else {
+          doc.addImage(imgdata, 'JPEG', 5, 5, width - 10, height - 10);
+          doc.save("file.pdf");
+        }
+      }
+    </script>
+  </body>
+
+</html>
